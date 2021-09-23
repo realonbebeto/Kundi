@@ -10,7 +10,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name="departments")
-data class Department(
+class Dept(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
@@ -29,10 +29,10 @@ data class Department(
     @JsonBackReference
     @ManyToOne(cascade=[CascadeType.ALL])
     @JoinColumn(name="parentDepartment")
-    val parentDept: Department,
+    val parentDept: Dept? = null,
 
     @OneToMany(mappedBy="parentDept")
-    val linkedDepts: MutableSet<Department> = HashSet<Department>(),
+    val linkedDepts: MutableSet<Dept> = HashSet<Dept>(),
 
     @DateTimeFormat
     val createdAt: LocalDateTime = LocalDateTime.now().plusHours(3),

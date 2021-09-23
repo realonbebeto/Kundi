@@ -1,9 +1,17 @@
 package com.kampuni.liber.models.requests
 
-import com.kampuni.liber.models.entities.Department
+import com.kampuni.liber.models.entities.Dept
+import com.kampuni.liber.models.entities.Title
+import com.kampuni.liber.v1.services.DeptService
 
-fun CreateUpdateDepartmentRequest.toDepartmentEntity(): Department = Department(
+
+fun CreateUpdateDeptRequest.toDepartmentEntity(): Dept = Dept(
     deptName = this.deptName,
     deptDesc = this.deptDesc,
 
+)
+fun CreateUpdateTitleRequest.toTitleEntity(deptService: DeptService): Title = Title(
+    titleName = this.titleName,
+    titleDesc = this.titleDesc,
+    deptUnder = deptService.findDeptTitleReq(this.deptUnder)
 )
