@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  kundi:
+    image: 'kampuni-1.0.jar'
+    build:
+      context: /home/main/Documents/dsrc/kt/kampuni
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - pgsql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://pgsql:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  pgsql:
+    image: postgres
+    ports:
+      - "5433:5433"
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

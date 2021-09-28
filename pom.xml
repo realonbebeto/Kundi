@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.kampuni</groupId>
 	<artifactId>kampuni</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>kampuni</name>
 	<description>kampuni self referencing</description>
 	<properties>
@@ -52,6 +52,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.5.10</version>
 		</dependency>
 	</dependencies>
 
