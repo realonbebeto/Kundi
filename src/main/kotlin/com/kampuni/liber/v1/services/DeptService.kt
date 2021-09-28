@@ -12,8 +12,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class DepartmentService(private val deptRepo: DeptRepo,
-                        private val deptService: DeptService) {
+class DepartmentService(private val deptRepo: DeptRepo, private val deptService: DeptService) {
 
     fun findDeptById(id: Long): DeptDTO? = deptRepo.findByIdOrNull(id)?.toDepartmentDTO()
 
@@ -29,7 +28,7 @@ class DepartmentService(private val deptRepo: DeptRepo,
                 Dept(
                     deptName = createUpdateDeptRequest.deptName,
                     deptDesc = createUpdateDeptRequest.deptDesc,
-                    parentDept = deptService.findDeptById(createUpdateDeptRequest.parentDept)
+                    parentDept = deptService.findDeptTitleReq(createUpdateDeptRequest.parentDept)
                 )
             )
         } else {
@@ -44,15 +43,18 @@ class DepartmentService(private val deptRepo: DeptRepo,
             throw IllegalStateException("Department of $deptId not found")
         }
     }
+    fun findDeptByIdReq(id: Long): Dept? = deptRepo.findByIdOrNull(id)
+
 }
 
 @Service
 class DeptService(private val deptRepo: DeptRepo){
-    fun findDeptById(id: Long): Dept? = deptRepo.findByIdOrNull(id)
+    fun findDeptByIdReq(id: Long): Dept? = deptRepo.findByIdOrNull(id)
 
     fun findDeptTitleReq(deptId: Long): Dept{
         val dept = deptRepo.findById(deptId).orElseThrow{
             IllegalStateException("Department of $deptId not found")
         }
         return dept
-}}
+    }
+}

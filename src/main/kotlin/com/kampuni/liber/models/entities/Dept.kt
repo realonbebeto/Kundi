@@ -17,27 +17,26 @@ class Dept(
 
     @NotNull
     @Column
-    val deptName: String,
+    var deptName: String,
 
     @Column
-    val deptDesc: String,
+    var deptDesc: String,
 
     @JsonManagedReference
     @OneToMany(mappedBy = "deptUnder", fetch = FetchType.LAZY)
     val titles: List<Title>? = null,
 
     @JsonBackReference
-    @ManyToOne(cascade=[CascadeType.ALL])
+    @ManyToOne(cascade=[CascadeType.ALL], fetch = FetchType.LAZY)
     @JoinColumn(name="parentDept")
-    var parentDept: Dept?,
+    var parentDept: Dept? = null,
 
-    @OneToMany(mappedBy="parentDept")
+    @OneToMany(mappedBy="parentDept", fetch = FetchType.LAZY)
     val linkedDepts: MutableSet<Dept> = HashSet<Dept>(),
 
     @DateTimeFormat
     val createdAt: LocalDateTime = LocalDateTime.now().plusHours(3),
 
     @DateTimeFormat
-    val updatedAt: LocalDateTime = LocalDateTime.now().plusHours(2)
-
+    val updatedAt: LocalDateTime = LocalDateTime.now().plusHours(2),
 )
