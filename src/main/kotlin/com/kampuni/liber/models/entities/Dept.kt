@@ -24,12 +24,12 @@ class Dept(
 
     @JsonManagedReference
     @OneToMany(mappedBy = "deptUnder", fetch = FetchType.LAZY)
-    val titles: List<Title>? =null,
+    val titles: List<Title>? = null,
 
     @JsonBackReference
     @ManyToOne(cascade=[CascadeType.ALL])
-    @JoinColumn(name="parentDepartment")
-    val parentDept: Dept? = null,
+    @JoinColumn(name="parentDept")
+    var parentDept: Dept?,
 
     @OneToMany(mappedBy="parentDept")
     val linkedDepts: MutableSet<Dept> = HashSet<Dept>(),

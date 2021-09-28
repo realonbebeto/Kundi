@@ -20,7 +20,8 @@ class DepartmentService(private val deptRepo: DeptRepo,
     fun findAllDept(pageable: Pageable): Page<DeptDTO> = deptRepo.findAll(pageable).map(Dept::toDepartmentDTO)
 
     fun createDept(createUpdateDeptRequest: CreateUpdateDeptRequest){
-        deptRepo.save(createUpdateDeptRequest.toDepartmentEntity())
+        deptRepo.save(createUpdateDeptRequest.toDepartmentEntity(deptService))
+
     }
     fun updateDeptById(deptId: Long, createUpdateDeptRequest: CreateUpdateDeptRequest){
         if (deptRepo.existsById(deptId)){

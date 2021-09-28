@@ -1,7 +1,6 @@
 package com.kampuni.liber.v1.controllers
 
 import com.kampuni.liber.models.dtos.TitleDTO
-import com.kampuni.liber.models.entities.Title
 import com.kampuni.liber.models.requests.CreateUpdateTitleRequest
 import com.kampuni.liber.v1.services.TitleService
 import org.springframework.data.domain.Page
